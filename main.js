@@ -101,5 +101,6 @@ async function addPlace() {
 }
 
 document.getElementById("submit").onclick = async() => {
+    document.getElementById("content").innerHTML = "";
     await addPlace();
 };
