@@ -20,25 +20,31 @@ const db = firebase.firestore();
 
 var place_map = new Map();
 
-db.collection("users").get().then((querySnapshot) => {
-    var qmp = {}
-    querySnapshot.forEach((doc) => {
-        console.log(`${doc.id} => ${doc.data()}`);
-        qmp[doc.id] = doc.data();
+async function update_place_map() {
+    await db.collection("users").get().then((querySnapshot) => {
+        var qmp = {}
+        querySnapshot.forEach((doc) => {
+            console.log(`${doc.id} => ${doc.data()}`);
+            qmp[doc.id] = doc.data();
 
-        var arr = new Array(3);
-        var date = doc.data()["date"]
-        arr[0] = doc.data()["place"];
-        arr[1] = doc.data()["time"];
-        arr[2] = doc.data()["link"];
+            var arr = new Array(3);
+            var date = doc.data()["date"]
+            arr[0] = doc.data()["place"];
+            arr[1] = doc.data()["time"];
+            arr[2] = doc.data()["link"];
 
-        if (!place_map.has(date))
-            place_map[date] = new Array();
+            if (!place_map.has(date))
+                place_map[date] = new Array();
 
-        place_map[date].push(arr);
+            place_map[date].push(arr);
 
 
-    })
+        })
+
+
+    });
 
     console.log(place_map);
-});
+}
+
+update_place_map();
