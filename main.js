@@ -32,6 +32,6 @@ db.collection("users").get().then((querySnapshot) => {
         place_map[date] = new Array();
 
     place_map[date].push(arr);
-});
 
-console.log(place_map);
+    console.log(place_map);
+});
