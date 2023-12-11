@@ -28,7 +28,7 @@ db.collection("users").get().then((querySnapshot) => {
 
         var arr = new Array(3);
         var date = doc.data()["date"]
-        arr[0] = doc.data()["name"];
+        arr[0] = doc.data()["place"];
         arr[1] = doc.data()["time"];
         arr[2] = doc.data()["link"];
 
@@ -37,8 +37,8 @@ db.collection("users").get().then((querySnapshot) => {
 
         place_map[date].push(arr);
 
-        console.log(place_map);
+
     })
 
-
+    console.log(place_map);
 });
