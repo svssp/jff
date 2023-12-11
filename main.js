@@ -1,4 +1,4 @@
-import {} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js";
+import { firebase } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js";
 import {} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js";
 
 const firebaseConfig = {
@@ -22,13 +22,14 @@ var place_map = new Map();
 
 db.collection("users").get().then((querySnapshot) => {
 
-    console.log(querySnapshot)
-
+    querySnapshot.forEach((doc) => {
+        qmp[doc.id] = doc.data();
+    })
     var arr = new Array(3);
-    var date = querySnapshot["date"]
-    arr[0] = querySnapshot["name"];
-    arr[1] = querySnapshot["time"];
-    arr[2] = querySnapshot["link"];
+    var date = qmp["date"]
+    arr[0] = qmp["name"];
+    arr[1] = qmp["time"];
+    arr[2] = qmp["link"];
 
     if (!place_map.has(date))
         place_map[date] = new Array();
@@ -36,4 +37,5 @@ db.collection("users").get().then((querySnapshot) => {
     place_map[date].push(arr);
 
     console.log(place_map);
+
 });
