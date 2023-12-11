@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js";
-import { getFirestore } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js";
+import {} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyA9x-k52z0XbpC7ff79PI5zHG4SwEhdTjw",
@@ -14,8 +14,8 @@ const firebaseConfig = {
 
 
 
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+const app = firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
 
 
 
