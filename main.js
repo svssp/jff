@@ -21,7 +21,7 @@ const db = firebase.firestore();
 var place_map = new Map();
 
 db.collection("users").get().then((querySnapshot) => {
-
+    qmp = {}
     querySnapshot.forEach((doc) => {
         qmp[doc.id] = doc.data();
     })
