@@ -22,6 +22,8 @@ var place_map = new Map();
 
 db.collection("users").get().then((querySnapshot) => {
 
+    console.log(querySnapshot)
+
     var arr = new Array(3);
     var date = querySnapshot["date"]
     arr[0] = querySnapshot["name"];
