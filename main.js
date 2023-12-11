@@ -37,14 +37,24 @@ async function update_place_map() {
                 place_map[date] = new Array();
 
             place_map[date].push(arr);
-
-
         })
-
-
     });
 
     console.log(place_map);
 }
 
-update_place_map();
+function display_trip() {
+
+    place_map.clear();
+    update_place_map();
+
+    var keys = [...place_map.keys()];
+    keys.sort();
+
+    keys.forEach((date) => {
+        var tag1 = "<b><u>${date}</b></u>";
+        document.getElementById("content").innerHTML = tag1;
+    })
+}
+
+display_trip();
