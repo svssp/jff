@@ -25,18 +25,20 @@ db.collection("users").get().then((querySnapshot) => {
     querySnapshot.forEach((doc) => {
         console.log(`${doc.id} => ${doc.data()}`);
         qmp[doc.id] = doc.data();
+
+        var arr = new Array(3);
+        var date = doc.data()["date"]
+        arr[0] = doc.data()["name"];
+        arr[1] = doc.data()["time"];
+        arr[2] = doc.data()["link"];
+
+        if (!place_map.has(date))
+            place_map[date] = new Array();
+
+        place_map[date].push(arr);
+
+        console.log(place_map);
     })
-    var arr = new Array(3);
-    var date = qmp["date"]
-    arr[0] = qmp["name"];
-    arr[1] = qmp["time"];
-    arr[2] = qmp["link"];
 
-    if (!place_map.has(date))
-        place_map[date] = new Array();
-
-    place_map[date].push(arr);
-
-    console.log(place_map);
 
 });
