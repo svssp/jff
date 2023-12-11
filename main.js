@@ -23,6 +23,7 @@ var place_map = new Map();
 db.collection("users").get().then((querySnapshot) => {
     var qmp = {}
     querySnapshot.forEach((doc) => {
+        console.log(`${doc.id} => ${doc.data()}`);
         qmp[doc.id] = doc.data();
     })
     var arr = new Array(3);
