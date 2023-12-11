@@ -26,6 +26,10 @@
     border-radius: 10px;
 }
 
+.content b {
+    margin-bottom: 10px;
+}
+
 .inside-container p {
     margin-bottom: 2px;
 }
