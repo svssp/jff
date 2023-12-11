@@ -18,10 +18,20 @@ const app = firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
 
+var place_map = new Map();
 
 db.collection("users").get().then((querySnapshot) => {
-    querySnapshot.forEach((doc) => {
-        console.log(`${doc.id} => ${doc.data()}`);
-    });
+
+    var arr = new Array(3);
+    var date = querySnapshot["date"]
+    arr[0] = querySnapshot["name"];
+    arr[1] = querySnapshot["time"];
+    arr[2] = querySnapshot["link"];
+
+    if (!place_map.has(date))
+        place_map[date] = new Array();
+
+    place_map[date].push(arr);
 });
-var place_map = new Map();
+
+console.log(place_map);
