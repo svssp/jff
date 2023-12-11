@@ -43,16 +43,16 @@ async function update_place_map() {
     console.log(place_map);
 }
 
-function display_trip() {
+async function display_trip() {
 
     place_map.clear();
-    update_place_map();
+    await update_place_map();
 
     var keys = [...place_map.keys()];
     keys.sort();
 
     keys.forEach((date) => {
-        var tag1 = "<b><u>${date}</b></u>";
+        var tag1 = '<b><u>${date}</b></u>';
         document.getElementById("content").innerHTML = tag1;
     })
 }
