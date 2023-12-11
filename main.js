@@ -59,7 +59,13 @@ async function display_trip() {
     var tag = "";
     arr.forEach((date) => {
         var tag1 = '<b><u>' + date.split("-").reverse().join("-") + '</u></b>';
-        place_map[date].sort();
+        place_map[date].sort(function(a, b) {
+            if (a[1] < b[1])
+                return -1;
+            else
+                return 1;
+
+        });
         place_map[date].forEach(date_arr => {
             var place = date_arr[0];
             var time = date_arr[1];
