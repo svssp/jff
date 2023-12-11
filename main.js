@@ -19,13 +19,12 @@ const db = firebase.firestore();
 
 
 var place_map = new Map();
+var keys = new Set();
 
 async function update_place_map() {
     await db.collection("users").get().then((querySnapshot) => {
-        var qmp = {}
+
         querySnapshot.forEach((doc) => {
-            console.log(`${doc.id} => ${doc.data()}`);
-            qmp[doc.id] = doc.data();
 
             var arr = new Array(3);
             var date = doc.data()["date"]
@@ -33,10 +32,12 @@ async function update_place_map() {
             arr[1] = doc.data()["time"];
             arr[2] = doc.data()["link"];
 
-            if (!place_map.has(date))
-                place_map[date] = new Array();
+            if (!(keys.has(date)))
+                place_map[date] = new Array(), console.log(date);
 
+            console.log(date, arr);
             place_map[date].push(arr);
+            keys.add(date);
         })
     });
 
@@ -48,13 +49,57 @@ async function display_trip() {
     place_map.clear();
     await update_place_map();
 
-    var keys = [...place_map.keys()];
-    keys.sort();
+    console.log(place_map["28-Nov-2023"])
 
-    keys.forEach((date) => {
-        var tag1 = '<b><u>${date}</b></u>';
-        document.getElementById("content").innerHTML = tag1;
+    var arr = [...keys];
+    arr.sort();
+
+    console.log(arr)
+
+    var tag = "";
+    arr.forEach((date) => {
+        var tag1 = '<b><u>' + date.split("-").reverse().join("-") + '</u></b>';
+        place_map[date].sort();
+        place_map[date].forEach(date_arr => {
+            var place = date_arr[0];
+            var time = date_arr[1];
+            var link = date_arr[2];
+            console.log(place_map[date])
+
+            var tag2 = '<div class = "container inside-container"><p> Place Name : ' + place + '</p><p> Expected start time: ' + time + '</p><a href=' + link + '>' + link + '</a></div><br>';
+            tag1 += tag2;
+
+        });
+        tag += tag1;
+
     })
+
+    document.getElementById("content").innerHTML = tag;
 }
 
 display_trip();
+
+async function addPlace() {
+
+    var date = document.getElementById("date").value;
+    var place = document.getElementById("place").value;
+    var time = document.getElementById("time").value;
+    var link = document.getElementById("link").value;
+    if (link == "")
+        link = "#";
+    await db.collection("users").add({
+        date: date,
+        time: time,
+        place: place,
+        link: link
+    }).then((e) => {
+        window.alert("Place added");
+        display_trip();
+    }).catch(err => {
+        window.alert(err);
+    })
+}
+
+document.getElementById("submit").onclick = async() => {
+    await addPlace();
+};

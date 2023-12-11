@@ -19,3 +19,13 @@
     padding: 4px 12px;
     border-radius: 8px;
 }
+
+.inside-container {
+    border: 1px solid black;
+    padding: 10px 20px;
+    border-radius: 10px;
+}
+
+.inside-container p {
+    margin-bottom: 2px;
+}
